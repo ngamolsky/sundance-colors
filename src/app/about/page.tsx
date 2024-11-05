@@ -11,42 +11,41 @@ export default async function AboutPage() {
   const aboutContent = await getAboutContent();
 
   return (
-    <main>
+    <main className="space-y-24">
       {/* Hero Section with Quote */}
-      <section className="my-16 px-4">
+      <section className="pt-16 px-4">
         <div className="mx-auto max-w-7xl">
-          <blockquote className="text-2xl italic text-center max-w-3xl mx-auto mb-16">
+          <blockquote className="text-3xl italic text-center max-w-3xl mx-auto mb-24 text-foreground/80">
             &quot;May what I do flow from me like a river, no forcing and no
             holding back, the way it is with children.&quot;
-            <footer className="text-lg mt-4 text-foreground/70">
+            <footer className="text-xl mt-6 text-foreground/60">
               - Rainer Maria Rilke
             </footer>
           </blockquote>
 
-          <div className="grid md:grid-cols-2 gap-12 items-start">
-            <div className="">
+          <div className="grid md:grid-cols-2 gap-16 items-start">
+            <div className="relative h-full">
               <Image
                 src={urlFor(aboutContent?.profileImage || {}).url()}
                 alt={
                   aboutContent?.profileImage?.alt ||
                   "Rachel Noble - Color Consultant"
                 }
-                width={500}
-                height={500}
-                className="object-contain shadow-lg"
+                fill
+                className="object-cover rounded-lg shadow-xl h-full"
                 priority
               />
             </div>
             <div className="space-y-8">
-              <div className="prose prose-lg">
-                <p className="text-lg leading-relaxed">
-                  I am passionate about beauty and its creation. I consider my
-                  color consulting a success only if you wake up each morning
-                  and say &quot;I love these colors&quot;. I would like to see
-                  through your eyes and invite you to see through mine.
-                </p>
+              <p className="text-xl leading-relaxed text-foreground/80 italic">
+                I am passionate about beauty and its creation. I consider my
+                color consulting a success only if you wake up each morning and
+                say &quot;I love these colors&quot;. I would like to see through
+                your eyes and invite you to see through mine.
+              </p>
 
-                <h2 className="text-3xl font-bold mb-6">My Journey</h2>
+              <div className="prose prose-lg prose-zinc">
+                <h2 className="text-3xl font-semibold mb-6">My Journey</h2>
                 <p>
                   I was born in Germany to Israeli and German parents and moved
                   to Israel at the age of six. Being a part of two distinct
@@ -82,33 +81,38 @@ export default async function AboutPage() {
       </section>
 
       {/* Mission Section */}
-      <section className="my-16 px-4 bg-accent/5">
-        <div className="mx-auto max-w-7xl py-16">
-          <div className="max-w-3xl mx-auto text-center space-y-6">
-            <h2 className="text-3xl font-bold">My Mission</h2>
-            <p className="text-lg">
-              My mission is to bring beauty and harmony into people&apos;s life
-              by increasing awareness and appreciation of color in one&apos;s
-              environment. I am currently writing a book on exterior color
-              themes inspired by the harmonies of the seasonal colors in the
-              Sierra Nevada Foothills, where I live.
-            </p>
+      <section className="px-4">
+        <div className="bg-accent/5 rounded-3xl">
+          <div className="mx-auto max-w-7xl py-24">
+            <div className="max-w-3xl mx-auto text-center space-y-8">
+              <h2 className="text-4xl font-semibold">My Mission</h2>
+              <p className="text-xl leading-relaxed text-foreground/80">
+                My mission is to bring beauty and harmony into people&apos;s
+                life by increasing awareness and appreciation of color in
+                one&apos;s environment. I am currently writing a book on
+                exterior color themes inspired by the harmonies of the seasonal
+                colors in the Sierra Nevada Foothills, where I live.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Credentials Section */}
-      <section className="my-16 px-4">
+      <section className="px-4 pb-24">
         <div className="mx-auto max-w-7xl">
-          <div className="prose prose-lg max-w-none">
-            <blockquote className="text-2xl italic text-center max-w-3xl mx-auto mb-16">
-              &quot;Let the beauty we love be what we do&quot;
-              <footer className="text-base mt-2 text-foreground/70">
-                - Jalaluddin Rumi
-              </footer>
-            </blockquote>
-            <h2 className="text-3xl font-bold mb-8">Professional Background</h2>
-            <p>
+          <blockquote className="text-3xl italic text-center max-w-3xl mx-auto mb-24 text-foreground/80">
+            &quot;Let the beauty we love be what we do&quot;
+            <footer className="text-xl mt-6 text-foreground/60">
+              - Jalaluddin Rumi
+            </footer>
+          </blockquote>
+
+          <div className="prose prose-lg prose-zinc max-w-4xl mx-auto">
+            <h2 className="text-4xl font-semibold mb-8">
+              Professional Background
+            </h2>
+            <p className="text-lg leading-relaxed">
               My deep interest in color and the possibility of enhancing the
               human experience through the beneficial use of color in design led
               me to study with and become the member of IACC - International

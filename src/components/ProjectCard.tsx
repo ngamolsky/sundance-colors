@@ -13,10 +13,10 @@ export function ProjectCard({ project }: { project: Project }) {
             src={urlFor(mainImage).url()}
             alt={mainImage?.alt || title}
             fill
-            className="object-cover rounded-lg "
+            className="object-cover rounded-lg"
           />
-          <div className="absolute inset-0 bg-black/40 rounded-lg flex flex-col justify-end p-4 ">
-            <h3 className="text-xl font-semibold text-white mb-2">{title}</h3>
+          <div className="absolute inset-x-0 bottom-0 bg-black/40 rounded-b-lg p-4">
+            <h3 className="text-xl font-semibold text-white">{title}</h3>
           </div>
         </div>
       )}
