@@ -1,8 +1,7 @@
+import { ProjectCard } from "@/components/ProjectCard";
 import { client } from "@/sanity/lib/client";
-import { urlFor } from "@/sanity/lib/image";
 import { ALL_PROJECTS_QUERY } from "@/sanity/lib/queries";
-import Image from "next/image";
-import Link from "next/link";
+import { Project } from "@/sanity/types";
 
 async function getAllProjects() {
   return await client.fetch(ALL_PROJECTS_QUERY);
@@ -19,25 +18,7 @@ export default async function GalleryPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project) => (
-              <Link
-                key={project._id}
-                href={`/projects/${project.slug?.current}`}
-                className="group"
-              >
-                {project.mainImage && (
-                  <div className="relative aspect-[4/3] mb-4">
-                    <Image
-                      src={urlFor(project.mainImage).url()}
-                      alt={project.mainImage?.alt || project.title}
-                      fill
-                      className="object-cover rounded-lg transition-transform duration-300 group-hover:scale-[1.02]"
-                    />
-                  </div>
-                )}
-                <h2 className="text-xl font-semibold group-hover:text-accent transition-colors">
-                  {project.title}
-                </h2>
-              </Link>
+              <ProjectCard key={project._id} project={project as Project} />
             ))}
           </div>
         </div>
