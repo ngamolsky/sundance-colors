@@ -383,6 +383,53 @@ export type ALL_PROJECTS_QUERYResult = Array<{
     _key: string;
   }> | null;
 }>;
+// Variable: PROJECT_BY_SLUG_QUERY
+// Query: *[_type == "project" && slug.current == $slug][0] {      _id,      title,      slug,      mainImage,      description,      gallery[] {        asset,        alt      },      completionDate    }
+export type PROJECT_BY_SLUG_QUERYResult = {
+  _id: string;
+  title: string;
+  slug: Slug;
+  mainImage: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  description: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }> | null;
+  gallery: Array<{
+    asset: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    } | null;
+    alt: string | null;
+  }> | null;
+  completionDate: string | null;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
@@ -392,5 +439,6 @@ declare module "@sanity/client" {
     "\n    *[_type == \"about\"][0] {\n      _id,\n      title,\n      profileImage,\n      biography,\n      services[] {\n        serviceName,\n        description\n      }\n    }\n  ": ABOUT_PAGE_QUERYResult;
     "\n    *[_type == \"project\"] {\n      _id,\n      mainImage\n    }\n  ": MAIN_IMAGE_QUERYResult;
     "\n    *[_type == \"project\"] | order(completionDate desc) {\n      _id,\n      title,\n      slug,\n      mainImage,\n      description\n    }\n  ": ALL_PROJECTS_QUERYResult;
+    "\n    *[_type == \"project\" && slug.current == $slug][0] {\n      _id,\n      title,\n      slug,\n      mainImage,\n      description,\n      gallery[] {\n        asset,\n        alt\n      },\n      completionDate\n    }\n  ": PROJECT_BY_SLUG_QUERYResult;
   }
 }

@@ -1,9 +1,8 @@
 import { client } from "@/sanity/lib/client";
-import { urlFor } from "@/sanity/lib/image";
-import Image from "next/image";
-import Link from "next/link";
 import { LATEST_PROJECTS_QUERY, MAIN_IMAGE_QUERY } from "@/sanity/lib/queries";
 import ImageCarousel from "@/components/ImageCarousel";
+import { ProjectCard } from "@/components/ProjectCard";
+import { Project } from "@/sanity/types";
 
 async function getLatestProjects() {
   return await client.fetch(LATEST_PROJECTS_QUERY);
@@ -16,7 +15,7 @@ async function getMainImages() {
 export default async function Home() {
   const projects = await getLatestProjects();
   const mainImages = await getMainImages();
-  console.log(mainImages);
+
   return (
     <main>
       {/* Hero Section */}
@@ -47,25 +46,7 @@ export default async function Home() {
           <h2 className="text-3xl font-bold mb-8">Latest Projects</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {projects.map((project) => (
-              <Link
-                key={project._id}
-                href={`/projects/${project.slug?.current}`}
-                className="group"
-              >
-                {project.mainImage && (
-                  <div className="relative aspect-[4/3] mb-4">
-                    <Image
-                      src={urlFor(project.mainImage).url()}
-                      alt={project.mainImage?.alt || project.title}
-                      fill
-                      className="object-cover rounded-lg"
-                    />
-                  </div>
-                )}
-                <h3 className="text-xl font-semibold group-hover:text-foreground/70 transition-colors">
-                  {project.title}
-                </h3>
-              </Link>
+              <ProjectCard key={project._id} project={project as Project} />
             ))}
           </div>
         </div>

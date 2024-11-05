@@ -39,3 +39,18 @@ export const ALL_PROJECTS_QUERY = defineQuery(`
       description
     }
   `);
+
+export const PROJECT_BY_SLUG_QUERY = defineQuery(`
+    *[_type == "project" && slug.current == $slug][0] {
+      _id,
+      title,
+      slug,
+      mainImage,
+      description,
+      gallery[] {
+        asset,
+        alt
+      },
+      completionDate
+    }
+  `);
