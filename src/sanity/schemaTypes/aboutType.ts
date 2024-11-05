@@ -25,6 +25,7 @@ export const aboutType = defineType({
           description: "Description of the profile image",
         }),
       ],
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "biography",

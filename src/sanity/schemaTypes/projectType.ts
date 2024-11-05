@@ -1,104 +1,74 @@
 import { defineField, defineType } from "sanity";
-import { ImageIcon } from "lucide-react";
+import { Palette } from "lucide-react";
 
 export const projectType = defineType({
   name: "project",
-  title: "Project",
+  title: "Projects",
   type: "document",
-  icon: ImageIcon,
-  description:
-    "A collection of photos and details for color consultation projects",
+  icon: Palette,
   fields: [
     defineField({
       name: "title",
-      title: "Title",
+      title: "Project Title",
       type: "string",
-      description: "The name of the project",
+      description: "Name of the interior design project",
       validation: (rule) => rule.required(),
     }),
     defineField({
       name: "slug",
       title: "Slug",
       type: "slug",
-      description: "The URL-friendly version of the project title",
-      options: { source: "title" },
-      validation: (rule) => rule.required(),
-    }),
-    defineField({
-      name: "publishedAt",
-      title: "Published Date",
-      type: "datetime",
-      description: "The date this project was published",
-      initialValue: () => new Date().toISOString(),
+      description: "URL-friendly version of the project title",
+      options: {
+        source: "title",
+      },
       validation: (rule) => rule.required(),
     }),
     defineField({
       name: "mainImage",
       title: "Main Image",
       type: "image",
-      description: "The primary image representing this project",
+      description: "The primary image that represents this project",
       fields: [
-        {
+        defineField({
           name: "alt",
           type: "string",
           title: "Alt Text",
-          description: "Description of the image for screen readers and SEO",
-        },
+          description: "Description of the image for accessibility and SEO",
+        }),
       ],
+      validation: (rule) => rule.required(),
     }),
     defineField({
-      name: "projectImages",
-      title: "Project Images",
+      name: "gallery",
+      title: "Project Gallery",
       type: "array",
-      description:
-        "A gallery of images showing different aspects of the project",
       of: [
         {
           type: "image",
           fields: [
-            {
+            defineField({
               name: "alt",
               type: "string",
               title: "Alt Text",
-              description:
-                "Description of the image for screen readers and SEO",
-            },
-            {
-              name: "caption",
-              type: "string",
-              title: "Caption",
-              description: "A brief caption explaining this particular image",
-            },
+              description: "Description of the image for accessibility and SEO",
+            }),
           ],
         },
       ],
     }),
     defineField({
       name: "description",
-      title: "Description",
+      title: "Project Description",
       type: "array",
-      description: "Detailed description of the color consultation project",
       of: [{ type: "block" }],
+      description: "Detailed description of the project and its outcomes",
     }),
     defineField({
-      name: "clientName",
-      title: "Client Name",
-      type: "string",
-      description: "Name of the client for this project",
-    }),
-    defineField({
-      name: "projectType",
-      title: "Project Type",
-      type: "string",
-      description: "The type of color consultation project",
-      options: {
-        list: [
-          { title: "Interior", value: "interior" },
-          { title: "Exterior", value: "exterior" },
-          { title: "Commercial", value: "commercial" },
-          { title: "Residential", value: "residential" },
-        ],
-      },
+      name: "completionDate",
+      title: "Completion Date",
+      type: "date",
+      description: "When was this project completed?",
     }),
   ],
 });

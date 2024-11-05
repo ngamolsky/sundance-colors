@@ -2,46 +2,42 @@ import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 import Link from "next/link";
-import { defineQuery } from "next-sanity";
-
-const LATEST_PROJECTS_QUERY = defineQuery(`
-  *[_type == "project"] | order(completionDate desc)[0...3] {
-    _id,
-    title,
-    slug,
-    mainImage,
-    description
-  }
-`);
+import { LATEST_PROJECTS_QUERY, MAIN_IMAGE_QUERY } from "@/sanity/lib/queries";
+import ImageCarousel from "@/components/ImageCarousel";
 
 async function getLatestProjects() {
   return await client.fetch(LATEST_PROJECTS_QUERY);
 }
 
+async function getMainImages() {
+  return await client.fetch(MAIN_IMAGE_QUERY);
+}
+
 export default async function Home() {
   const projects = await getLatestProjects();
-
+  const mainImages = await getMainImages();
+  console.log(mainImages);
   return (
     <main>
       {/* Hero Section */}
-      <section className="relative h-[80vh] flex items-center">
-        <div className="absolute inset-0 bg-black/40 z-10" />
+      <section className="relative h-[70vh] flex items-center overflow-hidden">
+        <ImageCarousel images={mainImages} />
+        <div className="absolute inset-0 bg-black/60 z-10" />
         <div className="mx-auto max-w-7xl px-4 relative z-20 text-white">
-          <h1 className="text-5xl md:text-6xl font-bold mb-4">
-            Transform Your Space
-            <br />
-            With Color
-          </h1>
-          <p className="text-xl mb-8 max-w-2xl">
-            Professional color consultation and interior design services to
-            create harmonious, inspiring spaces that reflect your vision.
+          <p className="text-2xl font-medium mb-8 max-w-2xl drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">
+            SunDance Colors offers complete residential and commercial
+            interior/exterior color consultant services. Specialized in
+            architectural color and texture consulting for home and business
+            owners, serving the Grass Valley, Truckee areas. We help our clients
+            create cohesive, integrated interior design concepts in a variety of
+            styles and tastes.
           </p>
-          <Link
-            href="/contact"
-            className="bg-white text-black px-8 py-3 rounded-full hover:bg-white/90 transition-colors"
-          >
-            Get Started
-          </Link>
+          <p className="text-2xl font-medium mb-8 max-w-2xl drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">
+            My deep interest in color and the possibility of enhancing the human
+            experience through the beneficial use of color in design led me to
+            study with and become the member of IACC - International Association
+            of Color Consultants.
+          </p>
         </div>
       </section>
 

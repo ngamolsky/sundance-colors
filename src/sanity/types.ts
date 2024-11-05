@@ -68,6 +68,26 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type HeroImage = {
+  _id: string;
+  _type: "heroImage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  mainImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+};
+
 export type About = {
   _id: string;
   _type: "about";
@@ -75,7 +95,7 @@ export type About = {
   _updatedAt: string;
   _rev: string;
   title?: string;
-  profileImage?: {
+  profileImage: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -120,8 +140,7 @@ export type Project = {
   _rev: string;
   title: string;
   slug: Slug;
-  publishedAt: string;
-  mainImage?: {
+  mainImage: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -133,7 +152,7 @@ export type Project = {
     alt?: string;
     _type: "image";
   };
-  projectImages?: Array<{
+  gallery?: Array<{
     asset?: {
       _ref: string;
       _type: "reference";
@@ -143,7 +162,6 @@ export type Project = {
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     alt?: string;
-    caption?: string;
     _type: "image";
     _key: string;
   }>;
@@ -165,8 +183,7 @@ export type Project = {
     _type: "block";
     _key: string;
   }>;
-  clientName?: string;
-  projectType?: "interior" | "exterior" | "commercial" | "residential";
+  completionDate?: string;
 };
 
 export type SanityImageCrop = {
@@ -232,11 +249,11 @@ export type Slug = {
   source?: string;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | About | Project | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | HeroImage | About | Project | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;
-// Source: ./src/app/page.tsx
+// Source: ./src/sanity/lib/queries.ts
 // Variable: LATEST_PROJECTS_QUERY
-// Query: *[_type == "project"] | order(completionDate desc)[0...3] {    _id,    title,    slug,    mainImage,    description  }
+// Query: *[_type == "project"] | order(completionDate desc)[0...3] {      _id,      title,      slug,      mainImage,      description    }
 export type LATEST_PROJECTS_QUERYResult = Array<{
   _id: string;
   title: string;
@@ -252,7 +269,101 @@ export type LATEST_PROJECTS_QUERYResult = Array<{
     crop?: SanityImageCrop;
     alt?: string;
     _type: "image";
-  } | null;
+  };
+  description: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }> | null;
+}>;
+// Variable: ABOUT_PAGE_QUERY
+// Query: *[_type == "about"][0] {      _id,      title,      profileImage,      biography,      services[] {        serviceName,        description      }    }
+export type ABOUT_PAGE_QUERYResult = {
+  _id: string;
+  title: string | null;
+  profileImage: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  biography: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }> | null;
+  services: Array<{
+    serviceName: string | null;
+    description: string | null;
+  }> | null;
+} | null;
+// Variable: MAIN_IMAGE_QUERY
+// Query: *[_type == "project"] {      _id,      mainImage    }
+export type MAIN_IMAGE_QUERYResult = Array<{
+  _id: string;
+  mainImage: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+}>;
+// Variable: ALL_PROJECTS_QUERY
+// Query: *[_type == "project"] | order(completionDate desc) {      _id,      title,      slug,      mainImage,      description    }
+export type ALL_PROJECTS_QUERYResult = Array<{
+  _id: string;
+  title: string;
+  slug: Slug;
+  mainImage: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
   description: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -277,6 +388,9 @@ export type LATEST_PROJECTS_QUERYResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "\n  *[_type == \"project\"] | order(completionDate desc)[0...3] {\n    _id,\n    title,\n    slug,\n    mainImage,\n    description\n  }\n": LATEST_PROJECTS_QUERYResult;
+    "\n    *[_type == \"project\"] | order(completionDate desc)[0...3] {\n      _id,\n      title,\n      slug,\n      mainImage,\n      description\n    }\n  ": LATEST_PROJECTS_QUERYResult;
+    "\n    *[_type == \"about\"][0] {\n      _id,\n      title,\n      profileImage,\n      biography,\n      services[] {\n        serviceName,\n        description\n      }\n    }\n  ": ABOUT_PAGE_QUERYResult;
+    "\n    *[_type == \"project\"] {\n      _id,\n      mainImage\n    }\n  ": MAIN_IMAGE_QUERYResult;
+    "\n    *[_type == \"project\"] | order(completionDate desc) {\n      _id,\n      title,\n      slug,\n      mainImage,\n      description\n    }\n  ": ALL_PROJECTS_QUERYResult;
   }
 }
