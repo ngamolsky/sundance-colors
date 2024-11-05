@@ -3,6 +3,7 @@ import { LATEST_PROJECTS_QUERY, MAIN_IMAGE_QUERY } from "@/sanity/lib/queries";
 import ImageCarousel from "@/components/ImageCarousel";
 import { ProjectCard } from "@/components/ProjectCard";
 import { Project } from "@/sanity/types";
+import Link from "next/link";
 
 async function getLatestProjects() {
   return await client.fetch(LATEST_PROJECTS_QUERY);
@@ -39,6 +40,14 @@ export default async function Home() {
               me to study with and become the member of IACC - International
               Association of Color Consultants.
             </p>
+            <div className="text-center">
+              <Link
+                href="/contact"
+                className="inline-block bg-primary hover:bg-primary/90 text-black px-12 py-4 rounded-lg font-semibold text-lg transition-colors shadow-lg hover:shadow-xl"
+              >
+                Schedule a Consultation
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -57,6 +66,14 @@ export default async function Home() {
             {projects.map((project) => (
               <ProjectCard key={project._id} project={project as Project} />
             ))}
+          </div>
+          <div className="text-center mt-16">
+            <Link
+              href="/contact"
+              className="inline-block bg-accent hover:bg-accent/90 text-white px-12 py-4 rounded-lg font-semibold text-lg transition-colors shadow-lg hover:shadow-xl"
+            >
+              Start Your Color Journey
+            </Link>
           </div>
         </div>
       </section>

@@ -13,7 +13,7 @@ export function Navigation() {
         <div className="flex items-center justify-between">
           <Link
             href="/"
-            className="flex items-center gap-3 text-xl font-semibold text-accent"
+            className="flex items-center gap-6 text-2xl  text-accent"
           >
             <div className="relative h-10 w-10">
               <Image
@@ -23,7 +23,7 @@ export function Navigation() {
                 className="object-contain"
               />
             </div>
-            <span className="pt-0.5 uppercase ">Sundance Colors</span>
+            <span className="pt-0.5">Sundance Colors</span>
           </Link>
 
           <div className="flex gap-8">
