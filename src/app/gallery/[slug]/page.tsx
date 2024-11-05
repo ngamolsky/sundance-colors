@@ -3,6 +3,7 @@ import { PROJECT_BY_SLUG_QUERY } from "@/sanity/lib/queries";
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 import { PortableText } from "@portabletext/react";
+import { NextPage } from "next";
 
 async function getProjectBySlug(slug: string) {
   return await client.fetch(PROJECT_BY_SLUG_QUERY, { slug });
@@ -14,7 +15,7 @@ interface PageProps {
   };
 }
 
-export default async function Page({ params }: PageProps) {
+const Page: NextPage<PageProps> = async ({ params }) => {
   const project = await getProjectBySlug(params.slug);
 
   if (!project) {
@@ -75,4 +76,6 @@ export default async function Page({ params }: PageProps) {
       </section>
     </main>
   );
-}
+};
+
+export default Page;
