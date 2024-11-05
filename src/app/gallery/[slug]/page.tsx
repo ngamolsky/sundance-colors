@@ -8,7 +8,13 @@ async function getProjectBySlug(slug: string) {
   return await client.fetch(PROJECT_BY_SLUG_QUERY, { slug });
 }
 
-export default async function Page({ params }: { params: { slug: string } }) {
+interface PageProps {
+  params: {
+    slug: string;
+  };
+}
+
+export default async function Page({ params }: PageProps) {
   const project = await getProjectBySlug(params.slug);
 
   if (!project) {
