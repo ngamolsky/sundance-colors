@@ -28,7 +28,7 @@ Best regards,`;
               <div className="flex items-center gap-3">
                 <Mail className="w-5 h-5" />
                 <a
-                  href="mailto:rachel@sundancecolors.com?subject=Interior Design Services Inquiry"
+                  href={`mailto:rachel@sundancecolors.com?subject=Interior Design Services Inquiry&body=${encodeURIComponent(emailBody)}`}
                   className="hover:underline"
                 >
                   rachel@sundancecolors.com
