@@ -45,6 +45,12 @@ export function Navigation() {
             >
               Contact
             </Link>
+            <Link
+              href="/studio"
+              className={`py-2 text-secondary-dark hover:text-accent transition-colors hover:underline ${pathname === "/studio" ? "underline text-accent" : ""}`}
+            >
+              Admin
+            </Link>
           </div>
         </div>
       </div>
