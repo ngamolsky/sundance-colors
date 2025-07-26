@@ -3,6 +3,9 @@ import { client } from "@/sanity/lib/client";
 import { ALL_PROJECTS_QUERY } from "@/sanity/lib/queries";
 import { Project } from "@/sanity/types";
 
+// Revalidate every 60 seconds (1 minute)
+export const revalidate = 60;
+
 async function getAllProjects() {
   return await client.fetch(ALL_PROJECTS_QUERY);
 }

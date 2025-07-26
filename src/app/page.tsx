@@ -5,6 +5,9 @@ import { ProjectCard } from "@/components/ProjectCard";
 import { Project } from "@/sanity/types";
 import Link from "next/link";
 
+// Revalidate every 60 seconds (1 minute)
+export const revalidate = 60;
+
 async function getLatestProjects() {
   return await client.fetch(LATEST_PROJECTS_QUERY);
 }

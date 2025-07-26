@@ -3,6 +3,9 @@ import { client } from "@/sanity/lib/client";
 import { ABOUT_PAGE_QUERY } from "@/sanity/lib/queries";
 import { urlFor } from "@/sanity/lib/image";
 
+// Revalidate every 60 seconds (1 minute)
+export const revalidate = 60;
+
 async function getAboutContent() {
   return await client.fetch(ABOUT_PAGE_QUERY);
 }
